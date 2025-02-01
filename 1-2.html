@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta lang="zh">
+        <meta charset="utf-8">
+        <meta http-equiv="refresh" content="30"/>
+        <title>1-2 利用錯位的斜線背景裝飾圖片</title>
+        <style>
+            .pic{
+                position: relative; /*偽元素的基準*/
+            }
+            .pic img{
+                position: relative;/*啟用z-index所需的程式碼*/
+                z-index: 2;/*讓圖片在斜線上層顯示*/
+                border: 1px black solid;
+                width: 100%;/*指定為容納圖片的父元素的100%寬度*/
+                height: 100%;/*指定為容納圖片的父元素的100%高度*/
+            }
+            .pic::before{
+                content: '';
+                position: absolute;
+                bottom: -15px;/*讓背景斜線往基準點下方移動15px*/
+                right: -15px;/*讓背景斜線往基準點右邊移動15px*/
+                width: 100%;/*指定為容納圖片的父元素的100%寬度*/
+                height: 100%;/*指定為容納圖片的父元素的100%高度*/
+                background-image: repeating-linear-gradient( -45deg, /*旋轉45度*/
+                lightblue 0px,darkblue 2px,/*有顏色的線條*/
+                rgba(0 0 0 / 0) 0%, rgba(0 0 0 /0) 50%);/*邊界(透明的部分)*/
+                background-size: 8px 8px;
+                z-index: 1;/*讓斜線在照片下方顯示*/
+            }
+            .content{
+                border: 1px blue solid;
+            }
+            .paragraph_title{
+                text-shadow: 
+                1px 1px lightpink,
+                2px 2px lightpink,
+                3px 3px lightpink;
+                color: darkblue;
+                font-weight: bold;
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="pic">
+            <img src="https://bpic.588ku.com/element_pic/23/12/15/41f08e4fe610250788f2446fcbb9a406.jpg!/fw/351/unsharp/true" alt="皮卡巴拉">
+        </div>
+        <br><br>
+        <div class="content">
+            <p class="paragraph_title">重點說明</p>
+            <input type="checkbox" id="c1" checked>
+            <label for="c1">能套用似有若無的裝飾</label><br>
+            <input type="checkbox" id="c2" checked>
+            <label for="c2">利用斜線的粗細營造不同的印象</label>
+
+
+            這是利用斜線替照片營造活潑印象的手法，這個設計就是使用偽元素撰寫。<br>
+            以容納圖片(img標籤)的父元素為基準點，再偽元素(::before)套用斜線的樣式。<br>
+            第一步要設定偽元素的位置。指定position:absolute，再利用bottom:-15px與right:-15px的語法讓斜線往圖片的右下角位移15px。利用width:100%與height:100%將
+            偽元素指定為父元素100%的大小(與父元素相同大小)。<br>
+            repeating-linear-gradient 就是利用其重複線性漸層的方式指定背景的方式設定，而0px-2px 是線條寬度，0%-50%是線條間距，而45deg則是讓線條旋轉45度
+        </div>
+    </body>
+</html>
